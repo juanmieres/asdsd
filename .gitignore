@@ -29,4 +29,4 @@ local
 # migraciones
 **/migrations/
 
-# static/tmp/
+static/tmp/
