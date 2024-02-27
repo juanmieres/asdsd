@@ -1,0 +1,25 @@
+services:
+  octosport-db:
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    container_name: octosport-db
+    environment:
+      - POSTGRES_DB=octosport
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
+  octosport-app:
+    build: .
+    working_dir: /home/app/src
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: octosport-app
+    volumes:
+      - .:/home/app
+    ports:
+      - "8001:8000"
+    depends_on:
+      - octosport-db
+volumes:
+  postgres-data:
